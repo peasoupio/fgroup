@@ -1,0 +1,3 @@
+file
+	files/fileset1/file1.txt
+	fileset2/file1.txt

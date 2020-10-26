@@ -1,0 +1,4 @@
+fileA
+	fileset1/file1.txt
+fileB
+	fileset2/file1.txt

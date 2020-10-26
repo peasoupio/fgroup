@@ -1,0 +1,6 @@
+./
+    fileset1
+        (* as 'file')
+./
+    fileset2
+        (* as 'file')

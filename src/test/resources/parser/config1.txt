@@ -1,0 +1,4 @@
+^/
+    Windows
+        System32
+            (*.dll)

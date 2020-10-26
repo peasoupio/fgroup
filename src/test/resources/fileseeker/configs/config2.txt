@@ -1,0 +1,3 @@
+./
+    fileset1
+        (* as 'file')

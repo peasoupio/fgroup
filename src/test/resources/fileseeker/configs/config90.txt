@@ -1,0 +1,3 @@
+./
+    fileset999
+        (* as 'file')

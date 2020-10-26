@@ -1,0 +1,2 @@
+file
+	files/fileset1/file1.txt

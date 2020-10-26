@@ -1,0 +1,3 @@
+./
+    fileset1
+        (fi*1.t*t as 'file')
