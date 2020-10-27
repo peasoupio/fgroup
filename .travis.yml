@@ -20,7 +20,7 @@ jobs:
 
     - stage: report tests (sonarqube)
       if: branch =~ ^release\/.*$
-      script: mvn -B -DskipTests=true -f core org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=fgroup
+      script: mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=fgroup
       addons:
         sonarcloud:
           organization: "peasoupio"
