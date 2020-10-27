@@ -15,6 +15,9 @@ public class RootStartingPoint implements StartingPoint {
     @Override
     public List<Path> getPaths() {
         Path currentPath = new File(UserSettings.getUserDir()).toPath();
-        return Collections.singletonList(currentPath.getRoot());
+        while(currentPath.getParent() != null)
+            currentPath = currentPath.getParent();
+
+        return Collections.singletonList(currentPath);
     }
 }

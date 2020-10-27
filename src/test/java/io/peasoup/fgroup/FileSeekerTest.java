@@ -3,7 +3,6 @@ package io.peasoup.fgroup;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +28,12 @@ public class FileSeekerTest {
     @Then("I should be told the seeker report file {string}")
     public void i_should_be_told_the_seeker_report_file(String string) throws IOException {
         Path reportPath = new File(ParserTest.class.getResource(string).getFile()).toPath();
-        String testReportContent = new String(Files.readAllBytes(reportPath));
+        String testReportContent = new String(Files.readAllBytes(reportPath))
+                .replace("\r\n", System.lineSeparator()); // Make sure its Unix-friendly
 
         FileMatches fileMatches = FileSeeker.seek(testConfigFile);
 
         assertNotNull(fileMatches);
         assertEquals(testReportContent, fileMatches.toString());
     }
-
 }

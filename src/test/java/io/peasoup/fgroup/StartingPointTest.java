@@ -4,6 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,21 +51,25 @@ public class StartingPointTest {
     @Then("I should be told its paths {string}")
     public void i_should_be_told_its_paths(String string) {
 
-        List<String> actualPaths = new ArrayList<>();
-        List<String> expectedPaths = new ArrayList<>();
+        List<Path> actualPaths = new ArrayList<>();
+        List<Path> expectedPaths = new ArrayList<>();
 
         // Get real expected paths
         if (RunCucumberTest.nullify(string) != null)
             expectedPaths = Arrays.stream(string.split(","))
                     .map(String::trim)
+                    .map(s -> Paths.get(s))
                     .collect(Collectors.toList());
 
         // Resolve actual paths
         if (actualStartingPoint != null)
-            actualPaths = this.actualStartingPoint.getPaths().stream()
-                    // Change Windows path.separator ('\') to Unix one ('/')
-                    .map(s -> s.toString().replace('\\', '/'))
-                    .collect(Collectors.toList());
+            actualPaths = this.actualStartingPoint.getPaths();
+
+        System.out.println("ACTUAL");
+        System.out.println(actualPaths);
+        System.out.println("EXPECTED");
+        System.out.println(expectedPaths);
+        System.out.flush();
 
         assertTrue(actualPaths.containsAll(expectedPaths));
     }

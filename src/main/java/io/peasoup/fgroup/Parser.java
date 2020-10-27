@@ -103,11 +103,13 @@ public class Parser {
                     default:
                         i += 3;
                         position++;
+                        continue;
                 }
 
             }
 
             filterStr = line.substring(i);
+            break;
         }
 
         if (StringUtils.isEmpty(filterStr)) return null;
