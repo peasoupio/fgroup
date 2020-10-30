@@ -1,0 +1,8 @@
+groovyFiles
+	.inv/src/class.groovy
+groovyTestFiles
+	.inv/test/test.groovy
+invFiles
+	.inv/vars/inv.yml
+scmFile
+	.inv/scm.groovy
