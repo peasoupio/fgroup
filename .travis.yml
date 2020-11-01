@@ -28,5 +28,5 @@ jobs:
             secure: "opNKQOKm7+I3CUf/PlNvFZshd/gaUPb6GDcjWvm7PF5WL6meknU9LIdrcPXMCp+/9W/8OIQgk++I69R0VvmyXNeo+PJC/cyIl6VpItb+V4VohPfm7l6q0e7iNrRjdj2lIjU0wv4rwjFCvBBSMydfrB98hq7S/x8e3WDy10HINZcUZ0NMeigP6W4sqwVvRXy0dgqHFGQjQtgVqmIlGN0A1mQB7LojaJWx9NhevMO8+7gfjYEM0jO74/nOc1s0yYsN752dbfYoY5+JsmkvMR3uiV1kwglYYa6G0f+4pjxPqYJd07/4XJ5TnnPTwHHiOt1MD4t5HMTLIzdJnhU46rTn0q332MFAsrYdsQRDCZspIl3IusMLMPBf2ANBN3MYyOXKw93x0NVFEQecA1CebdLeRb/43yBo41I7JC4H77X4tW1O1J///hreV5UdhRVYqTf1JBDn5uvA0LYyw8e6Q9Oo++V6ZCDXh4Yq+PzxR6nuxrhhJPZ6FSlmX2QiTh+fsr8G6Lk5QGbFwCpXbgCNxW0iahlR9D3DTYbnlzQ4+zWjRIAxynUGpB4T4WN1Lmb/bDrUEbkEZhxbA7mzgwSA2qlNxHLqWjre/HoRT6NGmSYyAFO2JA9M8t33uH5fDb+bxjZw0xc0zcTdLZvSvVhG+a3AgW6qiATeXNB5y1iCXSGGZv4="
 
     - stage: distribute
-        if: branch =~ ^release\/.*$
-        script: mvn -B -DskipTests=true deploy --settings ./ci/.travis-settings.xml
+      if: branch =~ ^release\/.*$
+      script: mvn -B -DskipTests=true deploy --settings ./ci/.travis-settings.xml
