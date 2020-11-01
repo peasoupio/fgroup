@@ -85,7 +85,7 @@ public class FileMatches {
         return sb.toString();
     }
 
-    static class FileMatchRecord {
+    public static class FileMatchRecord {
 
         private final Path root;
         private final Path current;

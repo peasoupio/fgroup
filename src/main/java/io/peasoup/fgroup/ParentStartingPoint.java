@@ -13,8 +13,8 @@ public class ParentStartingPoint implements StartingPoint {
     }
 
     @Override
-    public List<Path> getPaths() {
-        Path currentPath = new File(UserSettings.getUserDir()).toPath();
+    public List<Path> getPaths(String rootDirectory) {
+        Path currentPath = new File(rootDirectory).toPath();
         return Collections.singletonList(currentPath.getParent());
     }
 }

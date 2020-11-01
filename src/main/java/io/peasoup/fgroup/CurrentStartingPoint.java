@@ -13,7 +13,7 @@ public class CurrentStartingPoint implements StartingPoint{
     }
 
     @Override
-    public List<Path> getPaths() {
-        return Collections.singletonList(new File(UserSettings.getUserDir()).toPath());
+    public List<Path> getPaths(String rootDirectory) {
+        return Collections.singletonList(new File(rootDirectory).toPath());
     }
 }

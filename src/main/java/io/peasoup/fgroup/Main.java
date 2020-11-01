@@ -37,13 +37,9 @@ public class Main {
             return -1;
         }
 
-        //
         String directory = (String)opts.get("--directory");
-        if (StringUtils.isNotEmpty(directory))
-            UserSettings.setUserDir(directory);
-
         String configFileLocation = (String)opts.get("<config>");
-        FileMatches fileMatches = FileSeeker.seek(configFileLocation);
+        FileMatches fileMatches = new FileSeeker(configFileLocation).seek(directory);
 
         System.out.println(fileMatches.toString());
 

@@ -34,14 +34,13 @@ public class Configuration {
     }
 
 
-    @Override
-    public String toString() {
+    public String toString(String rootDirectory) {
         if (sections.isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();
         for (Parser.ConfigurationSection section: sections) {
-            sb.append(StartingPoint.toString(section.getStartingPoint()));
+            sb.append(StartingPoint.toString(section.getStartingPoint(), rootDirectory));
 
             int currentPosition = 0;
             for(Parser.SectionFilter filter : section.getFilters()) {

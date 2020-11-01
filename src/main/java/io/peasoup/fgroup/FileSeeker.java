@@ -6,21 +6,26 @@ import java.nio.file.Path;
 
 public class FileSeeker {
 
-    private FileSeeker() {
-        // private ctor
+    private final Configuration configuration;
+
+    public FileSeeker(String configFilepath) {
+        if (StringUtils.isEmpty(configFilepath))
+            throw new IllegalArgumentException("configFilepath");
+
+        this.configuration = new Parser().parse(configFilepath);
     }
 
-    public static FileMatches seek(String configFilepath) {
-        if (StringUtils.isEmpty(configFilepath))
-            return null;
+    public FileMatches seek() {
+        return seek( null);
+    }
 
-        Configuration config = new Parser().parse(configFilepath);
+    public FileMatches seek(String rootDirectory) {
         FileMatches globalFileMatches = new FileMatches();
 
-        for (Parser.ConfigurationSection section : config.getSections()) {
+        for (Parser.ConfigurationSection section : configuration.getSections()) {
             FileMatches fileMatches = new FileMatches();
 
-            for (Path root: section.getStartingPoint().getPaths()) {
+            for (Path root: section.getStartingPoint().getPaths(rootDirectory)) {
                 new FileWalker(root, section).walk(fileMatches);
             }
 

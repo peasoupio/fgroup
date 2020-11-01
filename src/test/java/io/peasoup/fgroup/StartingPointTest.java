@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class StartingPointTest {
 
     private String token;
+    private String rootDirectory;
     private StartingPoint actualStartingPoint;
 
     @Given("token is {string}")
@@ -30,6 +31,7 @@ public class StartingPointTest {
     public void i_ask_whether_it_s_valid_and_has_a_name() {
         this.actualStartingPoint = StartingPoint.get(token);
     }
+
     @Then("I should be told its name {string}")
     public void i_should_be_told_its_name(String expectedAnswer) {
         String name = null;
@@ -43,8 +45,7 @@ public class StartingPointTest {
 
     @When("I set the user.dir {string} to determine the path context")
     public void i_use_the_userdir_to_determine_the_path_context(String userDir) {
-        UserSettings.setUserDir(userDir);
-
+        this.rootDirectory = userDir;
         this.actualStartingPoint = StartingPoint.get(token);
     }
 
@@ -63,7 +64,7 @@ public class StartingPointTest {
 
         // Resolve actual paths
         if (actualStartingPoint != null)
-            actualPaths = this.actualStartingPoint.getPaths();
+            actualPaths = this.actualStartingPoint.getPaths(rootDirectory);
 
         System.out.println("ACTUAL");
         System.out.println(actualPaths);
