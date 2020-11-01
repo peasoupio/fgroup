@@ -20,12 +20,11 @@ jobs:
 
     - stage: report tests (sonarqube)
       if: branch =~ ^release\/.*$
-      script: mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=fgroup
-      addons:
-        sonarcloud:
-          organization: "peasoup"
-          token:
-            secure: "RpEhdFwG4jK8xFI8JwbZ01hnk3aa1XqhlLu5pLse32mqWp1/dRJTNMVQSc9kPLETRrGMgaEN7ocU8LN0V5Qj/kKZ2nPPzvE6uu9PMVFSOgwWz5B9nCZAGoM/IfKKfBfBXaiR0FvSCs/x3j0vf7j7bn10g49ZqB4MTs4Egrt1gx/mIHNGCmt2UgYCV/l9veOMseDWewrRHMgefc0ZRGVj9WrlWd1oKOMNYaddn20cVsBfA4zGYhBt7yM0+QvVr8WBKXxLJb3DezOIGdRg9+JIlO9N/ryVm8vxE2td9jep0QVYwZJ1kVyYhNFxChkJgqMLDrf4vAFDmW+s6iZpq/e5mcLNOwaXL9BQH5IVrhk1Tlp3R0w4qvUF1aQn4JnfiUCiR9lESCbYvWiO1v9v046JYjK0YVpgT9XrgX3Up8Ukq0wRaNU+hhbKAAcna9E1ohEq0fr0Xh4njSevyPCcyV3WFlXyfkjDqsg+HbXcM42UqAZevPezcQ2fS3aOjcAMpm2cOvRysI0zOc+O4vEbCsxNk6jEy0wOR2245GHfLhrX0/7epOJqCh79SJMPxIgvLfHMCcsRcsTmWmfOnCOqgZyHKmXdVkf5SxJlEIivdJhZmP3PX7F1/wC6I76CV1stpKiSQv/mgTQvRw20hu7pgS9325CYiIE7wGB2Su8oCNWxqjQ="
+      script: >-
+        mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+        -Dsonar.host.url=https://sonarcloud.io
+        -Dsonar.login=${env.SONARCLOUD}
+        -Dsonar.projectKey=fgroup
 
     - stage: distribute
       if: branch =~ ^release\/.*$
