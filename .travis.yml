@@ -9,6 +9,7 @@ cache:
   directories:
     - $HOME/.cache
     - $HOME/.m2
+    - $TRAVIS_BUILD_DIR/target
 
 install: true
 
@@ -20,8 +21,7 @@ jobs:
 
     - stage: report tests (sonarqube)
       if: branch =~ ^release\/.*$
-      script: >-
-        mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+      script: mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
 
     - stage: distribute
       if: branch =~ ^release\/.*$
