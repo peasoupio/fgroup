@@ -22,10 +22,6 @@ jobs:
       if: branch =~ ^release\/.*$
       script: >-
         mvn -B -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
-        -Dsonar.host.url=https://sonarcloud.io
-        -Dsonar.login=${env.SONARCLOUD}
-        -Dsonar.organization=peasoup
-        -Dsonar.projectKey=fgroup
 
     - stage: distribute
       if: branch =~ ^release\/.*$
