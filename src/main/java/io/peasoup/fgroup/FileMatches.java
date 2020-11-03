@@ -59,6 +59,9 @@ public class FileMatches {
         if (StringUtils.isEmpty(keyword))
             throw new IllegalArgumentException("keyword");
 
+        if (!this.capturedFile.containsKey(keyword))
+            return Collections.emptyList();
+
         return this.capturedFile.get(keyword);
     }
 
