@@ -16,6 +16,9 @@
 | Capture patterns on different indents | Not yet :-1: | 
 
 ### Install
+#### Prerequisites
+* Java 11 or newer.  
+
 #### Using Maven
 ```xml
 <dependency>
