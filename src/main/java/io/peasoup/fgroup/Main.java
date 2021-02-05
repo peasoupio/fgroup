@@ -38,6 +38,9 @@ public class Main {
         }
 
         String directory = (String)opts.get("--directory");
+        if (StringUtils.isEmpty(directory))
+            directory = FileSeeker.DEFAULT_ROOT_DIRECTORY;
+
         String configFileLocation = (String)opts.get("<config>");
         FileMatches fileMatches = new FileSeeker(configFileLocation).seek(directory);
 
