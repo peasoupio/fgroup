@@ -25,4 +25,4 @@ jobs:
 
     - stage: distribute
       if: branch =~ ^release\/.*$
-      script: mvn -B -DskipTests=true deploy --settings ./ci/.travis-settings.xml
+      script: mvn -B -DskipTests=true deploy -P distribute --settings ./ci/.travis-settings.xml
