@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public interface StartingPoint {
 
+    String DEFAULT_ROOT_DIRECTORY = System.getProperty("user.dir");
+
     /**
      * Gets the name of this starting point.
      * @return String representation of this starting point.
@@ -17,9 +19,10 @@ public interface StartingPoint {
     /**
      * Gets a list of path which become starting points for file lookup.
      * Paths must be ordered from the widest to the most narrow path.
+     * @param rootDirectory Current root directory
      * @return List of Path.
      */
-    List<Path> getPaths();
+    List<Path> getPaths(String rootDirectory);
 
     /**
      * Get a StartingPoint object based on a token.
@@ -38,7 +41,7 @@ public interface StartingPoint {
         }
     }
 
-    static String toString(StartingPoint sp) {
+    static String toString(StartingPoint sp, String rootDirectory) {
         if (sp == null)
             throw new IllegalArgumentException("sp");
 
@@ -48,7 +51,7 @@ public interface StartingPoint {
         sb.append("[").append(sp.getName().toUpperCase()).append("] ");
 
         // Get paths as strings
-        List<String> stringPaths = sp.getPaths().stream()
+        List<String> stringPaths = sp.getPaths(rootDirectory).stream()
                 // Change Windows-style to Unix-style file separator
                 .map(p -> p.toString().replace('\\', '/'))
                 // Make sure it does not end with a "/"

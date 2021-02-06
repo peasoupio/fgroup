@@ -25,3 +25,5 @@ Feature: What are the files I am seeking ?
       | /fileseeker/configs/config91.txt | /fileseeker/reports/report91.txt |
       | /fileseeker/configs/config92.txt | /fileseeker/reports/report92.txt |
       | /fileseeker/configs/config93.txt | /fileseeker/reports/report93.txt |
+      # Other peasoup project
+      | /fileseeker/configs/inv.txt      | /fileseeker/reports/inv.txt      |

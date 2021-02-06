@@ -13,16 +13,16 @@ public class FileWalker {
 
     private static final Integer INITIAL_FILTER_POSITION = 1;
 
-    private final Path root;
+    private final Path startingPointRoot;
     private final Parser.ConfigurationSection configurationSection;
 
-    public FileWalker(Path root, Parser.ConfigurationSection configurationSection) {
-        if (root == null)
-            throw new IllegalArgumentException("root");
+    public FileWalker(Path startingPointRoot, Parser.ConfigurationSection configurationSection) {
+        if (startingPointRoot == null)
+            throw new IllegalArgumentException("startingPointRoot");
         if (configurationSection == null)
             throw new IllegalArgumentException("configurationSection");
 
-        this.root = root;
+        this.startingPointRoot = startingPointRoot;
         this.configurationSection = configurationSection;
     }
 
@@ -36,7 +36,7 @@ public class FileWalker {
 
         // Add first index into the queue
         for (Parser.SectionFilter sectionFilter : indexedFilters.get(INITIAL_FILTER_POSITION)) {
-            processSection(pathStack, root, sectionFilter, fileMatches);
+            processSection(pathStack, startingPointRoot, sectionFilter, fileMatches);
         }
 
         // Number of path to check before increasing the position
@@ -71,7 +71,7 @@ public class FileWalker {
                 pathStack.add(guessingPath);
 
                 if (sectionFilter.getFilter().hasKeyword())
-                    fileMatches.match(sectionFilter.getFilter().getKeyword(), root, guessingPath);
+                    fileMatches.match(sectionFilter.getFilter().getKeyword(), startingPointRoot, guessingPath);
             }
         } else {
             Pattern pattern = Pattern.compile(sectionFilter.getFilter().convertRegex());
@@ -83,7 +83,7 @@ public class FileWalker {
                         pathStack.add(guessingPath);
 
                         if (sectionFilter.getFilter().hasKeyword())
-                            fileMatches.match(sectionFilter.getFilter().getKeyword(), root, guessingPath);
+                            fileMatches.match(sectionFilter.getFilter().getKeyword(), startingPointRoot, guessingPath);
                     });
             } catch (IOException e) {
                 e.printStackTrace();

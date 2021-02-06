@@ -14,9 +14,9 @@ public class TreeStartingPoint implements StartingPoint {
     }
 
     @Override
-    public List<Path> getPaths() {
+    public List<Path> getPaths(String rootDirectory) {
         List<Path> paths = new ArrayList<>();
-        Path currentPath = new File(UserSettings.getUserDir()).toPath();
+        Path currentPath = new File(rootDirectory).toPath();
 
         do {
             paths.add(currentPath);

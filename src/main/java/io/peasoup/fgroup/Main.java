@@ -37,13 +37,12 @@ public class Main {
             return -1;
         }
 
-        //
         String directory = (String)opts.get("--directory");
-        if (StringUtils.isNotEmpty(directory))
-            UserSettings.setUserDir(directory);
+        if (StringUtils.isEmpty(directory))
+            directory = FileSeeker.DEFAULT_ROOT_DIRECTORY;
 
         String configFileLocation = (String)opts.get("<config>");
-        FileMatches fileMatches = FileSeeker.seek(configFileLocation);
+        FileMatches fileMatches = new FileSeeker(configFileLocation).seek(directory);
 
         System.out.println(fileMatches.toString());
 

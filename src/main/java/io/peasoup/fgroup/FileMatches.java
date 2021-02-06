@@ -14,9 +14,17 @@ public class FileMatches {
         this.capturedFile = new HashMap<>();
     }
 
+    /**
+     * Merge results from another FileMatches instance into this one.
+     * @param other The other FileMatches instance.
+     */
     public void merge(FileMatches other) {
         if (other == null)
             throw new IllegalArgumentException("other");
+
+        // Will not process itself
+        if (other == this)
+            return;
 
         for(Map.Entry<String, List<FileMatchRecord>> kpv : other.capturedFile.entrySet()) {
             if (!this.capturedFile.containsKey(kpv.getKey())) {
@@ -33,7 +41,13 @@ public class FileMatches {
         }
     }
 
-    public void match(String keyword, Path root, Path path) {
+    /**
+     * Add a matching keyword from its startingPointRoot and the found file's path
+     * @param keyword Corresponding keyword.
+     * @param startingPointRoot The starting point root path
+     * @param path The found file's path
+     */
+    public void match(String keyword, Path startingPointRoot, Path path) {
         if (StringUtils.isEmpty(keyword))
             throw new IllegalArgumentException("keyword");
 
@@ -49,15 +63,23 @@ public class FileMatches {
 
         // Add path to keywords list
         List<FileMatchRecord> keywordPaths = capturedFile.get(keyword);
-        FileMatchRecord record = new FileMatchRecord(root, path);
+        FileMatchRecord record = new FileMatchRecord(startingPointRoot, path);
 
         if (!keywordPaths.contains(record))
             keywordPaths.add(record);
     }
 
+    /**
+     * Gets all FileMatchRecords for a specific keyword
+     * @param keyword The keyword. Required.
+     * @return Iterable of FileMatchRecords
+     */
     public Iterable<FileMatchRecord> get(String keyword) {
         if (StringUtils.isEmpty(keyword))
             throw new IllegalArgumentException("keyword");
+
+        if (!this.capturedFile.containsKey(keyword))
+            return Collections.emptyList();
 
         return this.capturedFile.get(keyword);
     }
@@ -85,43 +107,51 @@ public class FileMatches {
         return sb.toString();
     }
 
-    static class FileMatchRecord {
+    public static class FileMatchRecord {
 
-        private final Path root;
-        private final Path current;
+        private final Path startingPointRoot;
+        private final Path match;
 
-        public FileMatchRecord(Path root, Path current) {
-            if (root == null || !Files.exists(root))
-                throw new IllegalArgumentException("root");
+        public FileMatchRecord(Path startingPointRoot, Path match) {
+            if (startingPointRoot == null || !Files.exists(startingPointRoot))
+                throw new IllegalArgumentException("startingPointRoot");
 
-            if (current == null || !Files.exists(current))
-                throw new IllegalArgumentException("current");
+            if (match == null || !Files.exists(match))
+                throw new IllegalArgumentException("match");
 
-            this.root = root;
-            this.current = current;
+            this.startingPointRoot = startingPointRoot;
+            this.match = match;
         }
 
-        public Path getRoot() {
-            return this.root;
+        /**
+         * Gets the starting point root path.
+         * @return The path.
+         */
+        public Path getStartingPointRoot() {
+            return this.startingPointRoot;
         }
 
-        public Path getCurrent() {
-            return this.current;
+        /**
+         * Gets the matched file path.
+         * @return The path.
+         */
+        public Path getMatch() {
+            return this.match;
         }
 
         @Override
         public int hashCode() {
-            return this.current.hashCode();
+            return this.match.hashCode();
         }
 
         @Override
         public boolean equals(Object obj) {
-            return this.current.equals(obj);
+            return this.match.equals(obj);
         }
 
         @Override
         public String toString() {
-            return this.root.relativize(this.current).toString().replace("\\", "/");
+            return this.startingPointRoot.relativize(this.match).toString().replace("\\", "/");
         }
     }
 }
